@@ -1,12 +1,16 @@
-diff --git a/arch/arm/configs/msm8930_serrano_spr_defconfig b/arch/arm/configs/msm8930_serrano_spr_defconfig
-index 1d85cb9..e5e2c50 100644
---- a/arch/arm/configs/msm8930_serrano_spr_defconfig
-+++ b/arch/arm/configs/msm8930_serrano_spr_defconfig
-@@ -4,3 +4,4 @@ CONFIG_2MIC_ES305=y
- CONFIG_2MIC_QUP_I2C_GSBI11=y
- CONFIG_AUTHENTEC_VPNCLIENT_INTERCEPTOR=m
- CONFIG_KEYBOARD_CYPRESS_TOUCH=y
-+CONFIG_KEYBOARD_TC360_TOUCHKEY=n
+diff --git a/arch/arm/mach-msm/Makefile b/arch/arm/mach-msm/Makefile
+index a89843e..d153667 100644
+--- a/arch/arm/mach-msm/Makefile
++++ b/arch/arm/mach-msm/Makefile
+@@ -280,7 +280,7 @@ obj-$(CONFIG_MACH_MSM8930_EVT) += board-8930-all.o board-8930-regulator-pm8038.o
+ obj-$(CONFIG_MACH_EXPRESS2) += board-express2.o board-8930-camera-power.o board-8930-camera.o board-8930-display.o board-8930-pmic.o board-8930-storage.o board-express2-gpiomux.o devices-8930.o board-8930-gpu.o board-8930-regulator-pm8038.o board-8930-regulator-pm8917.o board-8930-input-mxt.o board-8930-input-tkey.o
+ obj-$(CONFIG_MACH_EXPRESS) += board-express.o board-8930-camera-power.o board-8930-camera.o board-8930-display.o board-8930-pmic.o board-8930-storage.o board-express-gpiomux.o devices-8930.o board-8930-gpu.o board-8930-regulator-pm8038.o board-8930-regulator-pm8917.o board-8930-input-mxt.o board-8930-input-tkey.o
+ obj-$(CONFIG_MACH_HIGGS) += board-higgs.o board-8930-camera-power.o board-8930-camera.o board-8930-display.o board-8930-pmic.o board-8930-storage.o board-higgs-gpiomux.o devices-8930.o board-8930-gpu.o board-8930-regulator-pm8038.o board-8930-regulator-pm8917.o board-8930-input-mms.o
+-obj-$(CONFIG_MACH_SERRANO) += board-serrano.o board-8930-camera-power.o board-8930-camera.o board-8930-display.o board-8930-pmic.o board-8930-storage.o board-serrano-gpiomux.o devices-8930.o board-8930-gpu.o board-8930-regulator-pm8038.o board-8930-regulator-pm8917.o board-8930-input-mxt.o board-8930-input-tkey.o
++obj-$(CONFIG_MACH_SERRANO) += board-serrano.o board-8930-camera-power.o board-8930-camera.o board-8930-display.o board-8930-pmic.o board-8930-storage.o board-serrano-gpiomux.o devices-8930.o board-8930-gpu.o board-8930-regulator-pm8038.o board-8930-regulator-pm8917.o board-8930-input-mxt.o board-8930-input-tkey-serrano.o
+ obj-$(CONFIG_MACH_CRATER) += board-crater.o board-8930-camera-power.o board-8930-camera.o board-8930-display.o board-8930-pmic.o board-8930-storage.o board-crater-gpiomux.o devices-8930.o board-8930-gpu.o board-8930-regulator-pm8038.o board-8930-regulator-pm8917.o board-8930-input-mxt.o board-8930-input-tkey.o
+ obj-$(CONFIG_MACH_BAFFIN) += board-baffin.o board-8930-camera-power.o board-8930-camera.o board-8930-display.o board-8930-pmic.o board-8930-storage.o board-baffin-gpiomux.o devices-8930.o board-8930-gpu.o board-8930-regulator-pm8038.o board-8930-regulator-pm8917.o board-8930-input-mxt.o board-8930-input-tkey.o
+ obj-$(CONFIG_MACH_JASPER2) += board-jasper2.o board-8930-camera-power.o board-8930-camera.o board-8930-display.o board-8930-pmic.o board-8930-storage.o board-jasper2-gpiomux.o devices-8930.o board-8930-gpu.o board-8930-regulator-pm8038.o board-8930-regulator-pm8917.o
 diff --git a/arch/arm/mach-msm/acpuclock-8930ab.c b/arch/arm/mach-msm/acpuclock-8930ab.c
 index 63fd725..59f0e14 100644
 --- a/arch/arm/mach-msm/acpuclock-8930ab.c
@@ -34,7 +38,7 @@ index ecb8f01..02b8b06 100644
  #else
  	return tgt->vdd_core + (enable_boost ? drv.boost_uv : 0);
 diff --git a/arch/arm/mach-msm/include/mach/serrano-gpio.h b/arch/arm/mach-msm/include/mach/serrano-gpio.h
-index 4b52826..8468dca 100644
+index 4b52826..fbf6ae4 100644
 --- a/arch/arm/mach-msm/include/mach/serrano-gpio.h
 +++ b/arch/arm/mach-msm/include/mach/serrano-gpio.h
 @@ -82,7 +82,7 @@
@@ -46,20 +50,6 @@ index 4b52826..8468dca 100644
  #define GPIO_VPS_AMP_EN		PM8038_GPIO_PM_TO_SYS(14)
  #else
  #define GPIO_VPS_AMP_EN		0
-@@ -97,6 +97,13 @@
- #define GPIO_EAR_DET			46
- #define GPIO_EAR_GND			43
- 
-+/* TODO: Update the drivers that use these rather than defining them */
-+#define GPIO_TKEY_I2C_SDA               71
-+#define GPIO_TKEY_I2C_SCL               72
-+#define GPIO_TKEY_I2C_SDA_REV02         24
-+#define GPIO_TKEY_I2C_SCL_REV02         25
-+/* ENDTODO */
-+
- #define GPIO_TOUCHKEY_I2C_SDA		24
- #define GPIO_TOUCHKEY_I2C_SCL		25
- #define GPIO_2MIC_PW_DN			63
 diff --git a/include/linux/i2c/cypress_touchkey.h b/include/linux/i2c/cypress_touchkey.h
 index 549ea70..24b566c 100644
 --- a/include/linux/i2c/cypress_touchkey.h
