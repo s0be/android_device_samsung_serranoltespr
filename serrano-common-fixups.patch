@@ -1,0 +1,90 @@
+diff --git a/Android.mk b/Android.mk
+index cf134f3..3ae9e30 100644
+--- a/Android.mk
++++ b/Android.mk
+@@ -23,7 +23,7 @@ LOCAL_PATH := $(call my-dir)
+ 
+ ifeq ($(BOARD_VENDOR),samsung)
+ ifeq ($(TARGET_BOARD_PLATFORM),msm8960)
+-ifneq ($(filter serrano3gxx serranodsdd serranodsub serranoltexx,$(TARGET_DEVICE)),)
++ifneq ($(filter serrano3gxx serranodsdd serranodsub serranoltespr serranoltexx,$(TARGET_DEVICE)),)
+ include $(call all-subdir-makefiles,$(LOCAL_PATH))
+ endif
+ endif
+diff --git a/common-proprietary-files.txt b/common-proprietary-files.txt
+index 2fb4745..e709362 100644
+--- a/common-proprietary-files.txt
++++ b/common-proprietary-files.txt
+@@ -42,20 +42,20 @@ lib/libmm-color-convertor.so
+ 
+ # Radio
+ bin/ds_fmc_appd
+-bin/netmgrd
++#bin/netmgrd
+ bin/qmuxd
+ bin/rild
+ bin/rmt_storage
+-bin/sec-ril
++#bin/sec-ril
+ lib/libcordon.so
+-lib/libdiag.so
+-lib/libdsi_netctrl.so
++#lib/libdiag.so
++#lib/libdsi_netctrl.so
+ lib/libdsutils.so
+ lib/libfactoryutil.so
+ lib/libnetmgr.so
+ lib/libomission_avoidance.so
+-lib/libqdi.so
+-lib/libqdp.so
++#lib/libqdi.so
++#lib/libqdp.so
+ lib/libreference-ril.so
+ lib/libril-qcril-hook-oem.so
+ lib/libsecril-client.so
+@@ -83,7 +83,8 @@ lib/hw/sensors.msm8960.so
+ 
+ # Camera
+ bin/mm-qcamera-daemon
+-lib/hw/camera.msm8960.so:/lib/hw/camera.vendor.msm8960.so
++lib/hw/camera.msm8960.so
++#:/lib/hw/camera.vendor.msm8960.so
+ lib/libadsprpc.so
+ lib/libchromatix_imx175_antishake.so
+ lib/libchromatix_imx175_default_video.so
+diff --git a/extract-files.sh b/extract-files.sh
+index 72415d3..377e449 100755
+--- a/extract-files.sh
++++ b/extract-files.sh
+@@ -20,7 +20,7 @@ fi
+ 
+ BASE=../../../vendor/$VENDOR/$DEVICE/proprietary
+ rm -rf $BASE/*
+-
++echo "$BASE"
+ for FILE in `egrep -v '(^#|^$)' ../$DEVICE/device-proprietary-files.txt`; do
+   echo "Extracting /system/$FILE ..."
+   DIR=`dirname $FILE`
+diff --git a/proprietary-files.txt b/proprietary-files.txt
+index d5bb66d..b02fd5f 100644
+--- a/proprietary-files.txt
++++ b/proprietary-files.txt
+@@ -1,4 +1,4 @@
+ # Put anything that cannot be in serrano-common
+ # Radio
+-lib/libril-qc-qmi-1.so
++#lib/libril-qc-qmi-1.so
+ lib/libril.so
+diff --git a/setup-makefiles.sh b/setup-makefiles.sh
+index 3553299..a795c5f 100755
+--- a/setup-makefiles.sh
++++ b/setup-makefiles.sh
+@@ -188,7 +188,7 @@ EOF
+ 
+ LOCAL_PATH := \$(call my-dir)
+ 
+-ifneq (\$(filter serrano3gxx serranodsub serranoltexx,\$(TARGET_DEVICE)),)
++ifneq (\$(filter serrano3gxx serranodsub serranoltespr serranoltexx,\$(TARGET_DEVICE)),)
+ 
+ include \$(CLEAR_VARS)
+ LOCAL_MODULE := libtime_genoff

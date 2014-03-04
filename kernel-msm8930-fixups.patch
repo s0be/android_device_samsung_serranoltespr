@@ -1,0 +1,75 @@
+diff --git a/arch/arm/configs/msm8930_serrano_spr_defconfig b/arch/arm/configs/msm8930_serrano_spr_defconfig
+index 1d85cb9..e5e2c50 100644
+--- a/arch/arm/configs/msm8930_serrano_spr_defconfig
++++ b/arch/arm/configs/msm8930_serrano_spr_defconfig
+@@ -4,3 +4,4 @@ CONFIG_2MIC_ES305=y
+ CONFIG_2MIC_QUP_I2C_GSBI11=y
+ CONFIG_AUTHENTEC_VPNCLIENT_INTERCEPTOR=m
+ CONFIG_KEYBOARD_CYPRESS_TOUCH=y
++CONFIG_KEYBOARD_TC360_TOUCHKEY=n
+diff --git a/arch/arm/mach-msm/acpuclock-8930ab.c b/arch/arm/mach-msm/acpuclock-8930ab.c
+index 63fd725..59f0e14 100644
+--- a/arch/arm/mach-msm/acpuclock-8930ab.c
++++ b/arch/arm/mach-msm/acpuclock-8930ab.c
+@@ -276,7 +276,7 @@ static struct acpu_level tbl_PVS6_1700MHz[] __initdata = {
+ 	{ 0, { 0 } }
+ };
+ 
+-#if defined(CONFIG_MACH_MELIUS_SKT)||defined(CONFIG_MACH_MELIUS_LGT)||defined(CONFIG_MACH_MELIUS_KTT)
++#if defined(CONFIG_MACH_MELIUS_SKT)||defined(CONFIG_MACH_MELIUS_LGT)||defined(CONFIG_MACH_MELIUS_KTT)||defined(CONFIG_MACH_SERRANO_SPR)
+ static struct pvs_table pvs_tables[NUM_SPEED_BINS][NUM_PVS] __initdata = {
+ 	[0][0] = { tbl_PVS0_1700MHz, sizeof(tbl_PVS0_1700MHz), 25000 },
+ 	[0][1] = { tbl_PVS1_1700MHz, sizeof(tbl_PVS1_1700MHz), 50000 },
+diff --git a/arch/arm/mach-msm/acpuclock-krait.c b/arch/arm/mach-msm/acpuclock-krait.c
+index ecb8f01..02b8b06 100644
+--- a/arch/arm/mach-msm/acpuclock-krait.c
++++ b/arch/arm/mach-msm/acpuclock-krait.c
+@@ -434,7 +434,7 @@ module_param_named(boost, enable_boost, bool, S_IRUGO | S_IWUSR);
+ 
+ static int calculate_vdd_core(const struct acpu_level *tgt)
+ {
+-#if defined(CONFIG_MACH_MELIUS_SKT)||defined(CONFIG_MACH_MELIUS_LGT)||defined(CONFIG_MACH_MELIUS_KTT)
++#if defined(CONFIG_MACH_MELIUS_SKT)||defined(CONFIG_MACH_MELIUS_LGT)||defined(CONFIG_MACH_MELIUS_KTT)||defined(CONFIG_MACH_SERRANO_SPR)
+ 	return tgt->vdd_core + drv.boost_uv ;
+ #else
+ 	return tgt->vdd_core + (enable_boost ? drv.boost_uv : 0);
+diff --git a/arch/arm/mach-msm/include/mach/serrano-gpio.h b/arch/arm/mach-msm/include/mach/serrano-gpio.h
+index 4b52826..8468dca 100644
+--- a/arch/arm/mach-msm/include/mach/serrano-gpio.h
++++ b/arch/arm/mach-msm/include/mach/serrano-gpio.h
+@@ -82,7 +82,7 @@
+ #define GPIO_SPKR_I2S_RX_WS		62
+ 
+ #if defined (CONFIG_MACH_SERRANO_ATT) || defined(CONFIG_MACH_SERRANO_VZW)\
+-	|| defined(CONFIG_MACH_SERRANO_LRA)
++	|| defined(CONFIG_MACH_SERRANO_LRA) || defined(CONFIG_MACH_SERRANO_SPR)
+ #define GPIO_VPS_AMP_EN		PM8038_GPIO_PM_TO_SYS(14)
+ #else
+ #define GPIO_VPS_AMP_EN		0
+@@ -97,6 +97,13 @@
+ #define GPIO_EAR_DET			46
+ #define GPIO_EAR_GND			43
+ 
++/* TODO: Update the drivers that use these rather than defining them */
++#define GPIO_TKEY_I2C_SDA               71
++#define GPIO_TKEY_I2C_SCL               72
++#define GPIO_TKEY_I2C_SDA_REV02         24
++#define GPIO_TKEY_I2C_SCL_REV02         25
++/* ENDTODO */
++
+ #define GPIO_TOUCHKEY_I2C_SDA		24
+ #define GPIO_TOUCHKEY_I2C_SCL		25
+ #define GPIO_2MIC_PW_DN			63
+diff --git a/include/linux/i2c/cypress_touchkey.h b/include/linux/i2c/cypress_touchkey.h
+index 549ea70..24b566c 100644
+--- a/include/linux/i2c/cypress_touchkey.h
++++ b/include/linux/i2c/cypress_touchkey.h
+@@ -14,7 +14,7 @@
+ extern struct class *sec_class;
+ extern int ISSP_main(void);
+ extern int touch_is_pressed;
+-extern int system_rev;
++extern unsigned int system_rev;
+ 
+ #include <linux/i2c.h>
+ #include <linux/delay.h>
