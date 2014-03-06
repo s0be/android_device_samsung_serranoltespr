@@ -1,34 +1,13 @@
 diff --git a/Android.mk b/Android.mk
-index f56279d..82d3a65 100644
+index 51b44fa..98f7e74 100644
 --- a/Android.mk
 +++ b/Android.mk
 @@ -24,7 +24,7 @@ LOCAL_PATH := $(call my-dir)
  
  ifeq ($(BOARD_VENDOR),samsung)
  ifeq ($(TARGET_BOARD_PLATFORM),msm8960)
--ifneq ($(filter serrano3gxx serranodsdd serranodsub serranoltexx,$(TARGET_DEVICE)),)
-+ifneq ($(filter serrano3gxx serranodsdd serranodsub serranoltespr serranoltexx,$(TARGET_DEVICE)),)
+-ifneq ($(filter lt02ltespr serrano3gxx serranodsdd serranodsub serranoltexx,$(TARGET_DEVICE)),)
++ifneq ($(filter lt02ltespr serrano3gxx serranodsdd serranodsub serranoltespr serranoltexx,$(TARGET_DEVICE)),)
  include $(call all-subdir-makefiles,$(LOCAL_PATH))
  endif
  endif
-diff --git a/BoardConfigCommon.mk b/BoardConfigCommon.mk
-index 58ca86f..ae4cbd6 100644
---- a/BoardConfigCommon.mk
-+++ b/BoardConfigCommon.mk
-@@ -18,7 +18,7 @@ BOARD_VENDOR := samsung
- TARGET_BOARD_PLATFORM := msm8960
- TARGET_BOARD_PLATFORM_GPU := qcom-adreno200
- TARGET_ARCH_VARIANT_CPU := cortex-a9
--
-+TARGET_CPU_VARIANT := krait
- # inherit from qcom-common
- -include device/samsung/qcom-common/BoardConfigCommon.mk
- 
-@@ -81,6 +81,6 @@ TARGET_USES_QCOM_COMPRESSED_AUDIO := true
- 
- # We have the new GPS driver
- #BOARD_HAVE_NEW_QC_GPS := true
--
-+QCOM_HARDWARE := true
- # Use CAF media driver variant for 8930
- TARGET_QCOM_MEDIA_VARIANT := caf
