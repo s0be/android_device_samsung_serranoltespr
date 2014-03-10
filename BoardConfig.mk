@@ -27,11 +27,13 @@
 -include vendor/samsung/serranoltespr/BoardConfigVendor.mk
 
 # Assert
-TARGET_OTA_ASSERT_DEVICE := serranoltespr,serranoltespr,L520,SPH-L520
+TARGET_OTA_ASSERT_DEVICE := serranoltespr,L520,SPH-L520
 
 # Kernel
 TARGET_KERNEL_VARIANT_CONFIG := msm8930_serrano_spr_defconfig
 
-QCOM_HARDWARE := true
 # NFC
 BOARD_HAVE_NFC := true
+
+# LED
+BOARD_HAVE_MULTI_COLOR_LED := true
