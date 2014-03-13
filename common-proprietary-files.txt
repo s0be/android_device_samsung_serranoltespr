@@ -42,20 +42,20 @@ lib/libmm-color-convertor.so
 
 # Radio
 bin/ds_fmc_appd
-bin/netmgrd
+# bin/netmgrd - doesn't exist in stock
 bin/qmuxd
 bin/rild
 bin/rmt_storage
-bin/sec-ril
+# bin/sec-ril - doesn't exist in stock
 lib/libcordon.so
-lib/libdiag.so
-lib/libdsi_netctrl.so
+vendor/lib/libdiag.so
+# lib/libdsi_netctrl.so - doesn't exist in stock
 lib/libdsutils.so
 lib/libfactoryutil.so
 lib/libnetmgr.so
 lib/libomission_avoidance.so
-lib/libqdi.so
-lib/libqdp.so
+# lib/libqdi.so - doesn't exist in stock
+# lib/libqdp.so - doesn't exist in stock
 lib/libreference-ril.so
 lib/libril-qcril-hook-oem.so
 lib/libsecril-client.so
@@ -83,7 +83,9 @@ lib/hw/sensors.msm8960.so
 
 # Camera
 bin/mm-qcamera-daemon
-lib/hw/camera.msm8960.so:/lib/hw/camera.vendor.msm8960.so
+lib/hw/camera.msm8960.so
+#:/lib/hw/camera.vendor.msm8960.so this will likely have broken camera
+#will add fixup later
 lib/libadsprpc.so
 lib/libchromatix_imx175_antishake.so
 lib/libchromatix_imx175_default_video.so
