@@ -21,6 +21,7 @@ fi
 BASE=../../../vendor/$VENDOR/$DEVICE/proprietary
 rm -rf $BASE/*
 
+echo "Using device-proprietary-files.txt"
 for FILE in `egrep -v '(^#|^$)' ./device-proprietary-files.txt`; do
   echo "Extracting /system/$FILE ..."
   DIR=`dirname $FILE`
@@ -34,6 +35,9 @@ for FILE in `egrep -v '(^#|^$)' ./device-proprietary-files.txt`; do
   fi
 done
 
+echo
+
+echo "Using proprietary-files.txt"
 for FILE in `egrep -v '(^#|^$)' ./proprietary-files.txt`; do
   echo "Extracting /system/$FILE ..."
   DIR=`dirname $FILE`
@@ -47,6 +51,9 @@ for FILE in `egrep -v '(^#|^$)' ./proprietary-files.txt`; do
   fi
 done
 
+echo
+
+echo "Using common-proprietary-files.txt"
 #rm -rf $BASE/*
 for FILE in `egrep -v '(^#|^$)' ./common-proprietary-files.txt`; do
   echo "Extracting /system/$FILE ..."
