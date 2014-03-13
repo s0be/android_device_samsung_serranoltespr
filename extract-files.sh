@@ -1,4 +1,6 @@
 #!/bin/sh
+export DEVICE=serranoltespr
+export VENDOR=samsung
 
 set -e
 
@@ -20,6 +22,10 @@ fi
 
 BASE=../../../vendor/$VENDOR/$DEVICE/proprietary
 rm -rf $BASE/*
+
+echo "Extracting to $BASE"
+
+echo
 
 echo "Using device-proprietary-files.txt"
 for FILE in `egrep -v '(^#|^$)' ./device-proprietary-files.txt`; do
@@ -68,4 +74,4 @@ for FILE in `egrep -v '(^#|^$)' ./common-proprietary-files.txt`; do
   fi
 done
 
-#./../serrano-common/setup-makefiles.sh
+./setup-makefiles.sh
