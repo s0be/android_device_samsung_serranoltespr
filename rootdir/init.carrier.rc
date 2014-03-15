@@ -80,3 +80,16 @@ on boot
     # efs
     mkdir /efs/drm 0700 system system
     mkdir /efs/imei 0775 radio radio
+
+# SPRINT/VMU/CRI Chameleon feature #
+on init
+    mkdir /carrier 0771 system system
+
+on fs
+    wait /dev/block/platform/msm_sdcc.1/by-name/carrier
+    mount ext4 /dev/block/platform/msm_sdcc.1/by-name/carrier /carrier nosuid nodev barrier=1
+    chown system system /carrier
+    chmod 0771 /carrier
+    # We restorecon /carrier in case the carrier partition has been reset.
+    restorecon -R /carrier 
+# End of Chameleon #
