@@ -21,7 +21,7 @@
 #
 
 # Inherit from common serrano
--include device/samsung/serrano-common/BoardConfigCommon.mk
+-include device/samsung/serranoltespr/BoardConfigCommon.mk
 
 # Inherit from the proprietary version
 -include vendor/samsung/serranoltespr/BoardConfigVendor.mk

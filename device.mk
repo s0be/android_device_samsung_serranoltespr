@@ -17,8 +17,8 @@
 $(call inherit-product-if-exists, vendor/samsung/serranoltespr/serranoltespr-vendor.mk)
 
 # Inherit from serrano-common
-$(call inherit-product, device/samsung/serrano-common/serrano-common.mk)
-$(call inherit-product, device/samsung/serrano-common/nfc.mk)
+$(call inherit-product, device/samsung/serranoltespr/serrano-common.mk)
+$(call inherit-product, device/samsung/serranoltespr/nfc.mk)
 
 # Device overlay
 DEVICE_PACKAGE_OVERLAYS += device/samsung/serranoltespr/overlay

@@ -23,7 +23,7 @@
 # inherit from common msm8930
 -include device/samsung/msm8930-common/BoardConfigCommon.mk
 
-TARGET_SPECIFIC_HEADER_PATH := device/samsung/serrano-common/include
+TARGET_SPECIFIC_HEADER_PATH := device/samsung/serranoltespr/include
 
 # For backwards compatibility with camera blobs
 COMMON_GLOBAL_CFLAGS += -DNEEDS_VECTORIMPL_SYMBOLS
@@ -44,11 +44,11 @@ TARGET_KERNEL_SELINUX_CONFIG := selinux_defconfig
 TARGET_BOOTLOADER_BOARD_NAME := MSM8960
 
 # Recovery
-BOARD_CUSTOM_RECOVERY_KEYMAPPING := ../../device/samsung/serrano-common/recovery/recovery_keys.c
+BOARD_CUSTOM_RECOVERY_KEYMAPPING := ../../device/samsung/serranoltespr/recovery/recovery_keys.c
 BOARD_USES_MMCUTILS := true
 BOARD_HAS_NO_MISC_PARTITION := true
-TARGET_RECOVERY_FSTAB := device/samsung/serrano-common/rootdir/fstab.qcom
-TARGET_RECOVERY_INITRC := device/samsung/serrano-common/rootdir/init.recovery.rc
+TARGET_RECOVERY_FSTAB := device/samsung/serranoltespr/rootdir/fstab.qcom
+TARGET_RECOVERY_INITRC := device/samsung/serranoltespr/rootdir/init.recovery.rc
 TARGET_RECOVERY_LCD_BACKLIGHT_PATH := \"/sys/class/lcd/panel/backlight\"
 COMMON_GLOBAL_CFLAGS += -DNO_SECURE_DISCARD
 
@@ -61,7 +61,7 @@ BOARD_CACHEIMAGE_PARTITION_SIZE := 209715200
 BOARD_FLASH_BLOCK_SIZE := 131072
 
 # Bluetooth
-BOARD_BLUETOOTH_BDROID_BUILDCFG_INCLUDE_DIR := device/samsung/serrano-common/bluetooth
+BOARD_BLUETOOTH_BDROID_BUILDCFG_INCLUDE_DIR := device/samsung/serranoltespr/bluetooth
 
 # NFC
 BOARD_NFC_HAL_SUFFIX := msm8960
