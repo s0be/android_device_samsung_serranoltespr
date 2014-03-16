@@ -10,6 +10,7 @@ telephony.sms.pseudo_multipart=1
 # LTE (8)
 ro.telephony.default_network=8
 ro.telephony.ril.v3=newDriverCallU,newDialCode
+rild.libpath=/system/lib/libsec-ril.so
 persist.radio.no_wait_for_card=1
 persist.radio.snapshot_enabled=1
 persist.radio.snapshot_timer=22
