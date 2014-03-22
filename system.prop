@@ -1,16 +1,13 @@
 # system.prop for serranoltespr
 #
 
-# cannot take spaces
+rild.libpath=/system/lib/libril-qc-qmi-1.so
 rild.libargs=-d /dev/smd0
 
 telephony.lteOnCdmaDevice=1
 telephony.sms.pseudo_multipart=1
-# Default to 3g/cdma(4) on bootup instead of 
-# LTE (8)
+# Default to 3g/cdma(4) on bootup instead of LTE (8)
 ro.telephony.default_network=8
-ro.telephony.ril.v3=newDriverCallU,newDialCode
-rild.libpath=/system/lib/libsec-ril.so
 persist.radio.no_wait_for_card=1
 persist.radio.snapshot_enabled=1
 persist.radio.snapshot_timer=22

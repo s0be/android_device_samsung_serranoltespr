@@ -29,12 +29,14 @@ on init
     mkdir /persdata 0755 system system
     mkdir /persdata/absolute 0750 system system
 
-    wait /dev/block/mmcblk0p20
-    mount ext4 /dev/block/mmcblk0p20 /persdata/absolute nosuid nodev barrier=1
+    wait /dev/block/platform/msm_sdcc.1/by-name/persdata
+    mount ext4 /dev/block/platform/msm_sdcc.1/by-name/persdata /persdata/absolute nosuid nodev barrier=1
     chown system system /persdata
     chmod 0755 /persdata
     chown system system /persdata/absolute
     chmod 0750 /persdata/absolute
+
+    mkdir /carrier 0771 system system
 
 on boot
     chown system system /sys/class/leds/button-backlight/brightness
@@ -49,14 +51,9 @@ on boot
     chown bluetooth net_bt_stack /sys/class/rfkill/rfkill0/type
 
     # Sensor - soft iron
-    write /sys/class/input/input5/static_matrix "9665 -302 -5 -268 10196 146 83 645 10159"
-    write /sys/class/input/input6/static_matrix "9665 -302 -5 -268 10196 146 83 645 10159"
-    write /sys/class/input/input7/static_matrix "9665 -302 -5 -268 10196 146 83 645 10159"
-
-    # Enable ellipsoid for dynamic compensation
-    write /sys/class/input/input3/ellipsoid_mode 1
-    write /sys/class/input/input4/ellipsoid_mode 1
-    write /sys/class/input/input5/ellipsoid_mode 1
+    write /sys/class/input/input5/static_matrix "9516 -259 4 -644 10349 -254 -112 -122 10153"
+    write /sys/class/input/input6/static_matrix "9516 -259 4 -644 10349 -254 -112 -122 10153"
+    write /sys/class/input/input7/static_matrix "9516 -259 4 -644 10349 -254 -112 -122 10153"
 
     # Define TCP buffer sizes for various networks
     # ReadMin, ReadInitial, ReadMax, WriteMin, WriteInitial, WriteMax,
@@ -81,15 +78,10 @@ on boot
     mkdir /efs/drm 0700 system system
     mkdir /efs/imei 0775 radio radio
 
-# SPRINT/VMU/CRI Chameleon feature #
-on init
-    mkdir /carrier 0771 system system
-
 on fs
     wait /dev/block/platform/msm_sdcc.1/by-name/carrier
     mount ext4 /dev/block/platform/msm_sdcc.1/by-name/carrier /carrier nosuid nodev barrier=1
     chown system system /carrier
     chmod 0771 /carrier
     # We restorecon /carrier in case the carrier partition has been reset.
-    restorecon -R /carrier 
-# End of Chameleon #
+    restorecon -R /carrier
