@@ -15,6 +15,7 @@
 
 # Also get non-open-source specific aspects if available
 $(call inherit-product-if-exists, vendor/samsung/serranoltespr/serranoltespr-vendor.mk)
+BOARD_RIL_CLASS := ../../../device/samsung/jf-common/ril
 
 PRODUCT_COPY_FILES += \
         device/samsung/serranoltespr/rootdir/init.carrier.rc:root/init.carrier.rc

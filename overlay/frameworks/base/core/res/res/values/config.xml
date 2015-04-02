@@ -33,4 +33,7 @@
 
     <!-- Does the battery LED support multiple colors? Used to decide if the user can change the colors -->
     <bool name="config_multiColorBatteryLed">true</bool>
+
+    <!-- If this value is true, The mms content-disposition field is supported correctly. If false, Content-disposition fragments are ignored -->
+    <bool name="config_mms_content_disposition_support">false</bool>
 </resources>
