@@ -14,8 +14,6 @@
 #
 
 # Also get non-open-source specific aspects if available
-$(call inherit-product-if-exists, vendor/samsung/serranoltespr/serranoltespr-vendor.mk)
-BOARD_RIL_CLASS := ../../../device/samsung/jf-common/ril
 
 PRODUCT_COPY_FILES += \
         device/samsung/serranoltespr/rootdir/init.carrier.rc:root/init.carrier.rc
@@ -23,17 +21,17 @@ PRODUCT_COPY_FILES += \
 PRODUCT_COPY_FILES += \
 	frameworks/native/data/etc/android.hardware.telephony.cdma.xml:system/etc/permissions/android.hardware.telephony.cdma.xml
 
-PRODUCT_PROPERTY_OVERRIDES += \
-        rild.libpath=/system/lib/libsec-ril.so
+PRODUCT_PROPERTY_OVERRIDES += rild.libpath=/system/lib/libsec-ril.so
 
-# Inherit from serrano-common
+PRODUCT_PROPERTY_OVERRIDES += ro.telephony.ril_class=jflteRIL
+
+DEVICE_PACKAGE_OVERLAYS += device/samsung/serranoltespr/overlay
+
+$(call inherit-product-if-exists, vendor/samsung/serranoltespr/serranoltespr-vendor.mk)
 $(call inherit-product, device/samsung/serrano-common/serrano-common.mk)
 $(call inherit-product, device/samsung/serrano-common/nfc.mk)
 
-PRODUCT_PROPERTY_OVERRIDES += \
-        rild.libpath=/system/lib/libsec-ril.so
 
 # Device overlay
-DEVICE_PACKAGE_OVERLAYS += device/samsung/serranoltespr/overlay
 
 # Permissions

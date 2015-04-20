@@ -26,15 +26,7 @@ PRODUCT_COPY_FILES += \
 PRODUCT_PROPERTY_OVERRIDES += \
 	rild.libpath=/system/lib/libsec-ril.so
 
-# Inherit from common serrano
 -include device/samsung/serrano-common/BoardConfigCommon.mk
-
-# Inherit from the proprietary version
--include vendor/samsung/serranoltespr/BoardConfigVendor.mk
-
-PRODUCT_PROPERTY_OVERRIDES += \
-	rild.libpath=/system/lib/libsec-ril.so
-
 # Assert
 TARGET_OTA_ASSERT_DEVICE := serranoltespr,L520,SPH-L520
 
@@ -46,4 +38,8 @@ BOARD_HAVE_NFC := true
 
 # LED
 BOARD_HAVE_MULTI_COLOR_LED := true
+
+BOARD_RIL_CLASS := ../../../device/samsung/jf-common/ril
+
+-include vendor/samsung/serranoltespr/BoardConfigVendor.mk
 
