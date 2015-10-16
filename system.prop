@@ -3,20 +3,24 @@
 
 # cannot take spaces
 rild.libargs=-d /dev/smd0
+rild.libpath=/system/lib/libsec-ril.so
 
-telephony.lteOnCdmaDevice=1
-telephony.sms.pseudo_multipart=1
+ro.cdma.default_numeric=310120
+ro.cdma.default_alpha=Sprint
+ro.gps.set_privacy=1
 # Default to 3g/cdma(4) on bootup instead of 
 # LTE (8)
 ro.telephony.default_network=4
-ro.telephony.ril.v3=newDriverCallU,newDialCode
-ro.telephony.ril.config=newDriverCallU,newDialCode
-ro.telephony.ril_class=jflteRIL
-rild.libpath=/system/lib/libsec-ril.so
-persist.radio.no_wait_for_card=1
+ro.telephony.get_imsi_from_sim=true
+telephony.lteOnCdmaDevice=1
+telephony.sms.pseudo_multipart=1
 persist.radio.snapshot_enabled=1
 persist.radio.snapshot_timer=22
 persist.eons.enabled=false
+ro.telephony.default_cdma_sub=1
+
+ro.telephony.ril.v3=newDriverCallU,newDialCode
+ro.telephony.ril.config=newDriverCallU,newDialCode
+ro.telephony.ril_class=jflteRIL
+persist.radio.no_wait_for_card=1
 persist.radio.use_se_table_only=1
-ro.cdma.default_numeric=310120
-ro.cdma.default_alpha=Sprint
