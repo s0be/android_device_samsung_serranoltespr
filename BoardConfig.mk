@@ -27,6 +27,8 @@ PRODUCT_PROPERTY_OVERRIDES += \
 	rild.libpath=/system/lib/libsec-ril.so
 
 -include device/samsung/serrano-common/BoardConfigCommon.mk
+# RIL
+COMMON_GLOBAL_CFLAGS += -DDISABLE_ASHMEM_TRACKING
 
 BOARD_RIL_CLASS := ../../../device/samsung/jf-common/ril
 # Assert
