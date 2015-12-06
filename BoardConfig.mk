@@ -42,5 +42,3 @@ BOARD_HAVE_NFC := true
 BOARD_HAVE_MULTI_COLOR_LED := true
 
 -include vendor/samsung/serranoltespr/BoardConfigVendor.mk
-
-WITH_DEXPREOPT := true
